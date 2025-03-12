@@ -11,6 +11,7 @@ namespace EpicVision.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.UseCollation("Cyrillic_General_CI_AS");
+
             base.OnModelCreating(modelBuilder);
         }
 
