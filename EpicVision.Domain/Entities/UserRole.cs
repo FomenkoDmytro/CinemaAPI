@@ -2,15 +2,15 @@
 
 namespace EpicVision.Domain.Entities
 {
-    internal class UserRoles
+    public class UserRole
     {
         [Key]
         public int Id { get; set; }
         
         [Required]
-        public string? Role {  get; set; }
+        public string Role {  get; set; } = string.Empty;
 
-        public List<Users> Users { get; set; } = new();
+        public List<User> Users { get; set; } = new();
 
     }
 }

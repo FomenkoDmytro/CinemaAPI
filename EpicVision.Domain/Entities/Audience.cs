@@ -1,14 +1,16 @@
 ﻿
-using System.ComponentModel.DataAnnotations;
 
+using System.ComponentModel.DataAnnotations;
 
 namespace EpicVision.Domain.Entities
 {
-    internal class Ganres
+    public class Audience
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
+
+        [Required]
+        public string Category { get; set; } = string.Empty;
 
         public List<Movie> Movies { get; set; } = new();
     }
