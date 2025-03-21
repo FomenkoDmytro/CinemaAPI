@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace EpicVision.Infrastructure.Migrations
+namespace EpicVision.Infrastructure_DAL.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

@@ -1,10 +1,6 @@
-using EpicVision.Application.Interfaces;
-using EpicVision.Application.Services;
-using EpicVision.Infrastructure.Data;
-using EpicVision.Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore;
+using EpicVision.Application_BLL;
+using EpicVision.Infrastructure_DAL;
 using System.Globalization;
-using System.Threading;
 
 
 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
@@ -14,13 +10,12 @@ Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
 
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 
-// Add services to the container.
-builder.Services.AddScoped<IMovieRepository, MovieRepository>();
-builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddApplicationLayer();
+builder.Services.AddInfrastructureLayer(builder.Configuration.GetConnectionString("DefaultConnection"));
+
 
 
 builder.Services.AddControllers();

@@ -1,4 +1,4 @@
-﻿using EpicVision.Application.Interfaces;
+﻿using EpicVision.Application_BLL.Interfaces;
 using EpicVision.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +18,16 @@ namespace CinemaAPI.Controllers
         // Получить все фильмы
         [HttpGet]
         public IActionResult GetAll() => Ok(_movieService.GetAllMovies());
+
+        [HttpGet("{dateTime}")]
+        public IActionResult GetMoviesFromDate(DateTime dateTime)
+        {
+            var startDate = DateOnly.FromDateTime(dateTime);
+            var startTime = TimeOnly.FromDateTime(dateTime);
+
+            var movies = _movieService.GetMoviesFromDate(startDate, startTime);
+            return Ok(movies);
+        }
 
         // Получить фильм по ID
         [HttpGet("{id}")]

@@ -1,8 +1,8 @@
 ﻿using EpicVision.Domain.Entities;
-using EpicVision.Infrastructure.Data;
+using EpicVision.Infrastructure_DAL.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace EpicVision.Infrastructure.Repositories
+namespace EpicVision.Infrastructure_DAL.Repositories
 {
     public class MovieRepository : IMovieRepository
     {
@@ -14,6 +14,16 @@ namespace EpicVision.Infrastructure.Repositories
         }
 
         public IEnumerable<Movie> GetAll() => _context.Movies.ToList();
+
+        public async Task<IEnumerable<Movie>> GetMoviesFromDateTime(DateOnly startSessionDate, TimeOnly startSessionTime)
+        {
+            
+            var movies = await _context.Movies.
+                Include(x => x.Sessions)
+                    .Where(x => x.Sessions.Any(s => (s.Date ==  startSessionDate && s.Time >= startSessionTime) || s.Date > startSessionDate))
+                .ToListAsync();
+            return movies;
+        }
 
         public Movie GetById(int id) => _context.Movies.Find(id);
 
@@ -38,5 +48,7 @@ namespace EpicVision.Infrastructure.Repositories
                 _context.SaveChanges();
             }
         }
+
+    
     }
 }

@@ -1,25 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using EpicVision.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace EpicVision.Domain.Entities
+namespace EpicVision.Application_BLL.DTO
 {
-    public enum DurationUnit
+    public class MoviesFromDateTime
     {
-        Minutes,
-        Hours
-    }
-
-    public class Movie
-    {
-
-
-        [Key]
         public int Id { get; set; }
 
         public string Title { get; set; } = string.Empty;
 
         public string ImageUrl { get; set; } = string.Empty;
-        //https://localhost:7216/images/halls/CinemaHall1.jpg
 
         public DateOnly StartDate { get; set; }
 
@@ -29,13 +23,11 @@ namespace EpicVision.Domain.Entities
 
         public string Plot { get; set; } = string.Empty;
 
-        public int AudienceId { get; set; }
-        public Audience? Audience { get; set; }
+        public string Audience { get; set; } = string.Empty;
 
-        public int ProducerId {  get; set; }
-        public Producer? Producer { get; set; }
+        public string Producer { get; set; } = string.Empty;
 
-        public List<Hall> Halls { get; set; } = new();
+        //public List<Hall> Halls { get; set; } = new();
 
         public List<Actor> Actors { get; set; } = new();
 

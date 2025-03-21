@@ -4,6 +4,7 @@ using EpicVision.Infrastructure_DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EpicVision.Infrastructure_DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250319201238_AddNewTables")]
+    partial class AddNewTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -187,7 +190,7 @@ namespace EpicVision.Infrastructure_DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("FristName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -214,17 +217,12 @@ namespace EpicVision.Infrastructure_DAL.Migrations
                     b.Property<int>("HallId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
                     b.Property<TimeOnly>("Time")
                         .HasColumnType("time");
 
                     b.HasKey("Id");
 
                     b.HasIndex("HallId");
-
-                    b.HasIndex("MovieId");
 
                     b.ToTable("Sessions");
                 });
@@ -365,15 +363,7 @@ namespace EpicVision.Infrastructure_DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EpicVision.Domain.Entities.Movie", "Movie")
-                        .WithMany("Sessions")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Hall");
-
-                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("EpicVision.Domain.Entities.User", b =>
@@ -436,11 +426,6 @@ namespace EpicVision.Infrastructure_DAL.Migrations
                 });
 
             modelBuilder.Entity("EpicVision.Domain.Entities.Hall", b =>
-                {
-                    b.Navigation("Sessions");
-                });
-
-            modelBuilder.Entity("EpicVision.Domain.Entities.Movie", b =>
                 {
                     b.Navigation("Sessions");
                 });

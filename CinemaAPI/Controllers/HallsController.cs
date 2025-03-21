@@ -1,40 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using EpicVision.Application_BLL.Interfaces;
+
 
 namespace CinemaAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    
     public class HallsController : Controller
     {
-        private readonly IWebHostEnvironment _env;
+        private readonly IFileService _fileService;
 
-        public HallsController(IWebHostEnvironment env)
+        public HallsController(IFileService fileService)
         {
-            _env = env;
+            _fileService = fileService;
         }
 
         [HttpPost("upload-image")]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
-            if (file == null || file.Length == 0)
-                return BadRequest("Файл не було обрано");
-
-            string uploadDir = Path.Combine(_env.WebRootPath, "images/halls");
-            if (!Directory.Exists(uploadDir))
+            try
             {
-                Directory.CreateDirectory(uploadDir);
+                string fileUrl = await _fileService.SaveHallImageAsync(file);
+                return Ok(new { url = fileUrl });
             }
-
-            string uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            string filePath = Path.Combine(uploadDir, uniqueFileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            catch (ArgumentException ex)
             {
-                await file.CopyToAsync(stream);
+                return BadRequest(ex.Message);
             }
-
-            //string fileUrl = $"/images/halls/{uniqueFileName}";
-            return Ok();
         }
     }
 }

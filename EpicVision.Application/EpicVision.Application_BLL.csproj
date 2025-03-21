@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\EpicVision.Domain\EpicVision.Domain.csproj" />
+		<ProjectReference Include="..\EpicVision.Infrastructure\EpicVision.Infrastructure_DAL.csproj" />
+		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.3" />
+		<PackageReference Include="Microsoft.AspNetCore.App" />
+
+
+	</ItemGroup>
+
+</Project>
