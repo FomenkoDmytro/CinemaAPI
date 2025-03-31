@@ -21,6 +21,8 @@ namespace EpicVision.Domain.Entities
         public string ImageUrl { get; set; } = string.Empty;
         //https://localhost:7216/images/halls/CinemaHall1.jpg
 
+        public string TrailerUrl {  get; set; } = string.Empty;
+
         public DateOnly StartDate { get; set; }
 
         public int Duration { get; set; }
