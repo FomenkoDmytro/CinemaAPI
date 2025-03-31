@@ -37,7 +37,7 @@ namespace EpicVision.Domain.Entities
         public int ProducerId {  get; set; }
         public Producer? Producer { get; set; }
 
-        public List<Hall> Halls { get; set; } = new();
+        //public List<Hall> Halls { get; set; } = new();
 
         public List<Actor> Actors { get; set; } = new();
 

@@ -16,7 +16,7 @@ namespace EpicVision.Domain.Entities
         public string ImageUrl { get; set; } = string.Empty;
         //https://localhost:7216/images/halls/CinemaHall1.jpg
 
-        public List<Movie> Movies { get; set; } = new();
+        //public List<Movie> Movies { get; set; } = new();
 
         public List<Session> Sessions { get; set; } = new();
     }
