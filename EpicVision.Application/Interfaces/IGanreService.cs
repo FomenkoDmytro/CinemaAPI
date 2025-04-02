@@ -1,0 +1,19 @@
+﻿using EpicVision.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using EpicVision.Application_BLL.DTO;
+
+
+namespace EpicVision.Application_BLL.Interfaces
+{
+    public interface IGanreService
+    {
+        Task<IEnumerable<GetAllGanresDto>> GetAllGanres();
+        Task Add(AddGanreDto ganreDto);
+        Task Update(Ganre ganre);
+        void Delete(int id);
+    }
+}

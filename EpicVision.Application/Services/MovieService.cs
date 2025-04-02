@@ -15,6 +15,7 @@ namespace EpicVision.Application_BLL.Services
         }
 
         public IEnumerable<Movie> GetAllMovies() => _movieRepository.GetAll();
+
         public async Task<IEnumerable<MoviesFromDateTime>> GetMoviesFromDate(DateOnly startSessionDate, TimeOnly startSessionTime)
         {
             var movies = await _movieRepository.GetMoviesFromDateTime(startSessionDate, startSessionTime);

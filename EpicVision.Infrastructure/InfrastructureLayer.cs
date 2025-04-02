@@ -13,6 +13,7 @@ namespace EpicVision.Infrastructure_DAL
                 options.UseSqlServer(connectionString));
 
             services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IGanreRepository, GanreRepository>();
 
             return services;
         }
