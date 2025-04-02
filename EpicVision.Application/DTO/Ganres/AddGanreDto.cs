@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EpicVision.Application_BLL.DTO
+namespace EpicVision.Application_BLL.DTO.Ganres
 {
     public class AddGanreDto
     {

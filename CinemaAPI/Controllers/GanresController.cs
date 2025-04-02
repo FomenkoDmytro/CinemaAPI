@@ -1,7 +1,7 @@
 ﻿using EpicVision.Application_BLL.Interfaces;
-using EpicVision.Application_BLL.DTO;
 using EpicVision.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using EpicVision.Application_BLL.DTO.Ganres;
 
 namespace CinemaAPI.Controllers
 {
@@ -34,7 +34,7 @@ namespace CinemaAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddGanre([FromBody] GetAllGanresDto newGanre)
+        public async Task<IActionResult> AddGanre([FromBody] AddGanreDto newGanre)
         {
             if (newGanre == null || string.IsNullOrWhiteSpace(newGanre.Name))
             {
@@ -53,6 +53,26 @@ namespace CinemaAPI.Controllers
 
             return Ok($"Жанр \"{newGanre.Name}\" додано");
 
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteGanre([FromBody] DeleteGanreDto deleteGanre)
+        {
+            if (deleteGanre == null)
+            {
+                return BadRequest("Некоректний id для видалення жанру");
+            }
+
+            try
+            {
+                await _ganreService.Delete(deleteGanre.Id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return Ok($"Жанр з Id \"{deleteGanre.Id}\" видалено");
         }
 
 

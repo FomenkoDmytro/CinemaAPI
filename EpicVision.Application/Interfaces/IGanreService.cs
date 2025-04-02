@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EpicVision.Application_BLL.DTO;
+using EpicVision.Application_BLL.DTO.Ganres;
 
 
 namespace EpicVision.Application_BLL.Interfaces
@@ -14,6 +14,6 @@ namespace EpicVision.Application_BLL.Interfaces
         Task<IEnumerable<GetAllGanresDto>> GetAllGanres();
         Task Add(AddGanreDto ganreDto);
         Task Update(Ganre ganre);
-        void Delete(int id);
+        Task Delete(int id);
     }
 }

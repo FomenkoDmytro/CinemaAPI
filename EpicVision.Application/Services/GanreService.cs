@@ -1,4 +1,4 @@
-﻿using EpicVision.Application_BLL.DTO;
+﻿using EpicVision.Application_BLL.DTO.Ganres;
 using EpicVision.Application_BLL.Interfaces;
 using EpicVision.Domain.Entities;
 using EpicVision.Infrastructure_DAL.Repositories;
@@ -25,9 +25,9 @@ namespace EpicVision.Application_BLL.Services
             await _ganreRepository.Add(ganre);
         }
 
-        void IGanreService.Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            await _ganreRepository.Delete(id);
         }
 
         async Task<IEnumerable<GetAllGanresDto>> IGanreService.GetAllGanres()
@@ -42,7 +42,7 @@ namespace EpicVision.Application_BLL.Services
 
         }
 
-        void IGanreService.Update(Ganre ganre)
+        public Task Update(Ganre ganre)
         {
             throw new NotImplementedException();
         }

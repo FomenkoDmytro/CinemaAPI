@@ -20,13 +20,19 @@ namespace EpicVision.Infrastructure_DAL.Repositories
 
         public async Task Add(Ganre ganre)
         {
-            _context.Add(ganre);
+            await _context.AddAsync(ganre);
             await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var ganre = await _context.Ganres.FindAsync(id);
+
+            if (ganre != null)
+            {
+                _context.Remove(ganre);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task<IEnumerable<Ganre>> GetAllGanres()
@@ -34,7 +40,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
             return await _context.Ganres.ToListAsync();
         }
 
-        public void Update(Ganre ganre)
+        public Task Update(Ganre ganre)
         {
             throw new NotImplementedException();
         }

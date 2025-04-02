@@ -1,4 +1,4 @@
-﻿using EpicVision.Application_BLL.DTO;
+﻿using EpicVision.Application_BLL.DTO.Movies;
 using EpicVision.Domain.Entities;
 
 namespace EpicVision.Application_BLL.Interfaces

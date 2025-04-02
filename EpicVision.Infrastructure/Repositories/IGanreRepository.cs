@@ -11,7 +11,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
     {
         Task<IEnumerable<Ganre>> GetAllGanres();
         Task Add(Ganre ganre);
-        void Update(Ganre ganre);
-        void Delete(int id);
+        Task Update(Ganre ganre);
+        Task Delete(int id);
     }
 }
