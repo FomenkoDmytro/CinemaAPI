@@ -13,7 +13,7 @@ namespace EpicVision.Application_BLL.Interfaces
     {
         Task<IEnumerable<GetAllGanresDto>> GetAllGanres();
         Task Add(AddGanreDto ganreDto);
-        Task Update(Ganre ganre);
+        Task Update(int id, UpdateGanreDto ganre);
         Task Delete(int id);
     }
 }

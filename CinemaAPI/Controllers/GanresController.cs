@@ -19,14 +19,14 @@ namespace CinemaAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllGanres()
         {
-            IEnumerable<GetAllGanresDto> ganres = null;
+            IEnumerable<GetAllGanresDto> ganres;
             try
             {
                 ganres = await _ganreService.GetAllGanres();
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
             return Ok(ganres);
@@ -48,33 +48,54 @@ namespace CinemaAPI.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
             return Ok($"Жанр \"{newGanre.Name}\" додано");
 
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteGanre([FromBody] DeleteGanreDto deleteGanre)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteGanre(int id)
         {
-            if (deleteGanre == null)
+            try
             {
-                return BadRequest("Некоректний id для видалення жанру");
+                await _ganreService.Delete(id);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
+            }
+
+            return Ok($"Жанр з Id \"{id}\" видалено");
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateGanre(int id, [FromBody] UpdateGanreDto updateGanre)
+        {
+            if (updateGanre == null || string.IsNullOrWhiteSpace(updateGanre.Name))
+            {
+                return BadRequest("Некоректна назва жанру");
             }
 
             try
             {
-                await _ganreService.Delete(deleteGanre.Id);
+                await _ganreService.Update(id, updateGanre);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok($"Жанр з Id \"{deleteGanre.Id}\" видалено");
+            return Ok($"Назву жанру з Id \"{id}\" оновлено на \"{updateGanre.Name}\"");
         }
-
-
     }
 }

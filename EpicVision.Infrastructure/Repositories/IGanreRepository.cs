@@ -10,6 +10,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
     public interface IGanreRepository
     {
         Task<IEnumerable<Ganre>> GetAllGanres();
+        Task<Ganre> GetById(int id);
         Task Add(Ganre ganre);
         Task Update(Ganre ganre);
         Task Delete(int id);

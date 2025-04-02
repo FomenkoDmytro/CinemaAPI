@@ -11,6 +11,5 @@ namespace EpicVision.Application_BLL.DTO.Ganres
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-
     }
 }

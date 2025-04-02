@@ -42,9 +42,18 @@ namespace EpicVision.Application_BLL.Services
 
         }
 
-        public Task Update(Ganre ganre)
+        public async Task Update(int id, UpdateGanreDto ganre)
         {
-            throw new NotImplementedException();
+           var ganreForUpdate = await _ganreRepository.GetById(id);
+
+            if(ganreForUpdate == null)
+            {
+                throw new KeyNotFoundException($"Жанр з id {id} не знайдено.");
+            }
+
+            ganreForUpdate.Name = ganre.Name;
+
+            await _ganreRepository.Update(ganreForUpdate);
         }
     }
 }
