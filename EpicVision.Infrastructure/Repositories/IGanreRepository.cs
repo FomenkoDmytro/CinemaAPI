@@ -9,7 +9,8 @@ namespace EpicVision.Infrastructure_DAL.Repositories
 {
     public interface IGanreRepository
     {
-        Task<IEnumerable<Ganre>> GetAllGanres();
+        Task<IEnumerable<Ganre>> GetAllGanresDictionary();
+        Task<IEnumerable<Ganre>> GetAllGanresWithMovies();
         Task<Ganre> GetById(int id);
         Task Add(Ganre ganre);
         Task Update(Ganre ganre);

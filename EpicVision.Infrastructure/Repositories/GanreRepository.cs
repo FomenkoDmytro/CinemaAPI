@@ -35,7 +35,16 @@ namespace EpicVision.Infrastructure_DAL.Repositories
             }
         }
 
-        public async Task<IEnumerable<Ganre>> GetAllGanres()
+        public async Task<IEnumerable<Ganre>> GetAllGanresWithMovies()
+        {
+            return await _context.Ganres
+                .Include(g => g.Movies)
+                .ToListAsync();
+        }
+
+
+
+        public async Task<IEnumerable<Ganre>> GetAllGanresDictionary()
         {
             return await _context.Ganres.ToListAsync();
         }

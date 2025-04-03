@@ -7,16 +7,16 @@ namespace CinemaAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GanresController : ControllerBase
+    public class AudienceController : ControllerBase
     {
         private readonly IGanreService _ganreService;
 
-        public GanresController(IGanreService ganreService)
+        public AudienceController(IGanreService ganreService)
         {
             _ganreService = ganreService;
         }
 
-        [HttpGet("dictionary")]
+        [HttpGet]
         public async Task<IActionResult> GetAllGanresDictionary()
         {
             IEnumerable<GetAllGanresDictionaryDto> ganres;
@@ -32,25 +32,6 @@ namespace CinemaAPI.Controllers
             return Ok(ganres);
 
         }
-
-        [HttpGet("withMovies")]
-        public async Task<IActionResult> GetAllGanresWithMovies()
-        {
-            IEnumerable<GetAllGanresWithMoviesDto> ganres;
-            try
-            {
-                ganres = await _ganreService.GetAllGanresWithMovies();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
-            }
-
-            return Ok(ganres);
-
-        }
-
-
 
         [HttpPost]
         public async Task<IActionResult> AddGanre([FromBody] AddGanreDto newGanre)

@@ -11,7 +11,9 @@ namespace EpicVision.Application_BLL.Interfaces
 {
     public interface IGanreService
     {
-        Task<IEnumerable<GetAllGanresDto>> GetAllGanres();
+        Task<IEnumerable<GetAllGanresDictionaryDto>> GetAllGanresDictionary();
+        Task<IEnumerable<GetAllGanresWithMoviesDto>> GetAllGanresWithMovies();
+
         Task Add(AddGanreDto ganreDto);
         Task Update(int id, UpdateGanreDto ganre);
         Task Delete(int id);

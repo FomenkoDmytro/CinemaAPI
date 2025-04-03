@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace EpicVision.Application_BLL.DTO.Ganres
 {
-    public class GetAllGanresDto
+    public class MovieShortDto
     {
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
     }
 }

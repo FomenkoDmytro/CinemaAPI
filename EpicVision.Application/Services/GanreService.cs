@@ -30,14 +30,31 @@ namespace EpicVision.Application_BLL.Services
             await _ganreRepository.Delete(id);
         }
 
-        async Task<IEnumerable<GetAllGanresDto>> IGanreService.GetAllGanres()
+        public async Task<IEnumerable<GetAllGanresDictionaryDto>> GetAllGanresDictionary()
         {
-            var ganres = await _ganreRepository.GetAllGanres();
+            var ganres = await _ganreRepository.GetAllGanresDictionary();
             return ganres
-                .Select(g => new GetAllGanresDto
+                .Select(g => new GetAllGanresDictionaryDto
                 {
                     Id = g.Id,
                     Name = g.Name,
+                }).ToList();
+
+        }
+
+        public async Task<IEnumerable<GetAllGanresWithMoviesDto>> GetAllGanresWithMovies()
+        {
+            var ganres = await _ganreRepository.GetAllGanresWithMovies();
+            return ganres
+                .Select(g => new GetAllGanresWithMoviesDto
+                {
+                    Id = g.Id,
+                    Name = g.Name,
+                    Movies = g.Movies.Select(m => new MovieShortDto
+                    {
+                        Id = m.Id,
+                        Title = m.Title,
+                    }).ToList()
                 }).ToList();
 
         }
