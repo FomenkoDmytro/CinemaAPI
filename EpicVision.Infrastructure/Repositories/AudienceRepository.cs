@@ -36,10 +36,16 @@ namespace EpicVision.Infrastructure_DAL.Repositories
             }
         }
 
-        public async Task<IEnumerable<Audience>> GetAllAudiences()
+        public async Task<IEnumerable<Audience>> GetAllAudiencesDirectory()
         {
             return await _context.Audiences.ToListAsync();
         }
+
+        public async Task<IEnumerable<Audience>> GetAllAudiencesWithMovies()
+        {
+            return await _context.Audiences.Include(a => a.Movies).ToListAsync();
+        }
+
 
         public async Task<Audience> GetById(int id)
         {

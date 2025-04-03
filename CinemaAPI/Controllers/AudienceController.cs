@@ -1,7 +1,7 @@
 ﻿using EpicVision.Application_BLL.Interfaces;
 using EpicVision.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using EpicVision.Application_BLL.DTO.Ganres;
+using EpicVision.Application_BLL.DTO.Audiences;
 
 namespace CinemaAPI.Controllers
 {
@@ -9,41 +9,62 @@ namespace CinemaAPI.Controllers
     [ApiController]
     public class AudienceController : ControllerBase
     {
-        private readonly IGanreService _ganreService;
+        private readonly IAudienceService _audienceService;
 
-        public AudienceController(IGanreService ganreService)
+        public AudienceController(IAudienceService audienceService)
         {
-            _ganreService = ganreService;
+            _audienceService = audienceService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllGanresDictionary()
+        [HttpGet("dictionary")]
+        public async Task<IActionResult> GetAllAudiencesDictionary()
         {
-            IEnumerable<GetAllGanresDictionaryDto> ganres;
+            IEnumerable<GetAllAudiencesDictionaryDto> audiences;
+
             try
             {
-                ganres = await _ganreService.GetAllGanresDictionary();
+                audiences = await _audienceService.GetAllAudiencesDictionary();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok(ganres);
+            return Ok(audiences);
 
         }
+
+        [HttpGet("withMovies")]
+        public async Task<IActionResult> GetAllAudiencesWithMovies()
+        {
+            IEnumerable<GetAllAudiencesWithMoviesDto> audiences;
+
+            try
+            {
+                audiences = await _audienceService.GetAllAudiencesWithMovies();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
+            }
+
+            return Ok(audiences);
+
+        }
+
+
 
         [HttpPost]
-        public async Task<IActionResult> AddGanre([FromBody] AddGanreDto newGanre)
+        public async Task<IActionResult> AddAudience([FromBody] AddAudienceDto newAudience)
         {
-            if (newGanre == null || string.IsNullOrWhiteSpace(newGanre.Name))
+            if (newAudience == null || string.IsNullOrWhiteSpace(newAudience.Category))
             {
-                return BadRequest("Некоректна назва жанру");
+                return BadRequest("Некоректна назва аудиторії");
             }
 
             try
             {
-                await _ganreService.Add(newGanre);
+                await _audienceService.Add(newAudience);
 
             }
             catch (Exception ex)
@@ -51,16 +72,16 @@ namespace CinemaAPI.Controllers
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok($"Жанр \"{newGanre.Name}\" додано");
+            return Ok($"Аудиторію \"{newAudience.Category}\" додано");
 
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGanre(int id)
+        public async Task<IActionResult> DeleteAudience(int id)
         {
             try
             {
-                await _ganreService.Delete(id);
+                await _audienceService.Delete(id);
             }
             catch (KeyNotFoundException ex)
             {
@@ -71,20 +92,20 @@ namespace CinemaAPI.Controllers
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok($"Жанр з Id \"{id}\" видалено");
+            return Ok($"Аудиторію з Id \"{id}\" видалено");
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateGanre(int id, [FromBody] UpdateGanreDto updateGanre)
+        public async Task<IActionResult> UpdateAudience(int id, [FromBody] UpdateAudienceDto updateAudience)
         {
-            if (updateGanre == null || string.IsNullOrWhiteSpace(updateGanre.Name))
+            if (updateAudience == null || string.IsNullOrWhiteSpace(updateAudience.Category))
             {
-                return BadRequest("Некоректна назва жанру");
+                return BadRequest("Некоректна назва аудиторії");
             }
 
             try
             {
-                await _ganreService.Update(id, updateGanre);
+                await _audienceService.Update(id, updateAudience);
             }
             catch (KeyNotFoundException ex)
             {
@@ -95,7 +116,7 @@ namespace CinemaAPI.Controllers
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok($"Назву жанру з Id \"{id}\" оновлено на \"{updateGanre.Name}\"");
+            return Ok($"Назву аудиторії з Id \"{id}\" оновлено на \"{updateAudience.Category}\"");
         }
     }
 }

@@ -9,7 +9,8 @@ namespace EpicVision.Infrastructure_DAL.Repositories
 {
     public interface IAudienceRepository
     {
-        Task<IEnumerable<Audience>> GetAllAudiences();
+        Task<IEnumerable<Audience>> GetAllAudiencesDirectory();
+        Task<IEnumerable<Audience>> GetAllAudiencesWithMovies();
         Task<Audience> GetById(int id);
         Task Add(Audience audience);
         Task Update(Audience audience);
