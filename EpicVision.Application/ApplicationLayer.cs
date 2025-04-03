@@ -13,6 +13,7 @@ namespace EpicVision.Application_BLL
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IGanreService, GanreService>();
             services.AddScoped<IAudienceService, AudienceService>();
+            services.AddScoped<ILanguageService, LanguageService>();
 
             return services;
         } 

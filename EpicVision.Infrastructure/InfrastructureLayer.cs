@@ -15,6 +15,7 @@ namespace EpicVision.Infrastructure_DAL
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IGanreRepository, GanreRepository>();
             services.AddScoped<IAudienceRepository, AudienceRepository>();
+            services.AddScoped<ILanguageRepository, LanguageRepository>();
 
             return services;
         }
