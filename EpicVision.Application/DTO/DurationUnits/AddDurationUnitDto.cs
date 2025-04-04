@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EpicVision.Domain.Entities
+namespace EpicVision.Application_BLL.DTO.DurationUnits
 {
-    public class DurationUnit
+    public class AddDurationUnitDto
     {
-        [Key]
-        public int Id { get; set; }
-
-        [Required]
         public string ShortName { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
-
-
     }
 }

@@ -17,6 +17,7 @@ namespace EpicVision.Infrastructure_DAL.Data
         public DbSet<Session> Sessions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<DurationUnit> DurationUnits { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.UseCollation("Cyrillic_General_CI_AS");
