@@ -16,6 +16,7 @@ namespace EpicVision.Application_BLL
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<IDurationUnitService, DurationUnitService>();
             services.AddScoped<IActorService, ActorService>();
+            services.AddScoped<IProducerService, ProducerService>();
 
             return services;
         } 

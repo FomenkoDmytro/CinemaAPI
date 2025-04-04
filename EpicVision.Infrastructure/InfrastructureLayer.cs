@@ -18,6 +18,7 @@ namespace EpicVision.Infrastructure_DAL
             services.AddScoped<ILanguageRepository, LanguageRepository>();
             services.AddScoped<IDurationUnitRepository, DurationUnitRepository>();
             services.AddScoped<IActorRepository, ActorRepository>();
+            services.AddScoped<IProducerRepository, ProducerRepository>();
 
 
             return services;
