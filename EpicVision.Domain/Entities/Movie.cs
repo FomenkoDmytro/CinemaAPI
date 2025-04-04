@@ -3,12 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EpicVision.Domain.Entities
 {
-    public enum DurationUnit
-    {
-        Minutes,
-        Hours
-    }
-
     public class Movie
     {
 
@@ -27,7 +21,8 @@ namespace EpicVision.Domain.Entities
 
         public int Duration { get; set; }
 
-        public DurationUnit DurationUnit { get; set; }
+        public int DurationUnitId {  get; set; }
+        public DurationUnit? DurationUnit { get; set; }
 
         public string Plot { get; set; } = string.Empty;
 
