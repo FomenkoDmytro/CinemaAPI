@@ -1,70 +1,70 @@
 ﻿using EpicVision.Application_BLL.Interfaces;
 using EpicVision.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using EpicVision.Application_BLL.DTO.Actors;
+using EpicVision.Application_BLL.DTO.Audiences;
 
 namespace CinemaAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ActorController : ControllerBase
+    public class AudiencesController : ControllerBase
     {
-        private readonly IActorService _actorService;
+        private readonly IAudienceService _audienceService;
 
-        public ActorController(IActorService actorService)
+        public AudiencesController(IAudienceService audienceService)
         {
-            _actorService = actorService;
+            _audienceService = audienceService;
         }
 
         [HttpGet("dictionary")]
-        public async Task<IActionResult> GetAllActorsDictionary()
+        public async Task<IActionResult> GetAllAudiencesDictionary()
         {
-            IEnumerable<GetAllActorsDictionaryDto> actors;
+            IEnumerable<GetAllAudiencesDictionaryDto> audiences;
 
             try
             {
-                actors = await _actorService.GetAllActorsDictionary();
+                audiences = await _audienceService.GetAllAudiencesDictionary();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok(actors);
+            return Ok(audiences);
 
         }
 
         [HttpGet("withMovies")]
-        public async Task<IActionResult> GetAllActorsWithMovies()
+        public async Task<IActionResult> GetAllAudiencesWithMovies()
         {
-            IEnumerable<GetAllActorsWithMoviesDto> actors;
+            IEnumerable<GetAllAudiencesWithMoviesDto> audiences;
 
             try
             {
-                actors = await _actorService.GetAllActorsWithMovies();
+                audiences = await _audienceService.GetAllAudiencesWithMovies();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok(actors);
+            return Ok(audiences);
 
         }
 
 
 
         [HttpPost]
-        public async Task<IActionResult> AddActor([FromBody] AddActorDto newActor)
+        public async Task<IActionResult> AddAudience([FromBody] AddAudienceDto newAudience)
         {
-            if (newActor == null || string.IsNullOrWhiteSpace(newActor.FirstName) || string.IsNullOrWhiteSpace(newActor.LastName))
+            if (newAudience == null || string.IsNullOrWhiteSpace(newAudience.Category))
             {
-                return BadRequest("Некоректне І'мя або Прізвище актора");
+                return BadRequest("Некоректна назва аудиторії");
             }
 
             try
             {
-                await _actorService.Add(newActor);
+                await _audienceService.Add(newAudience);
 
             }
             catch (Exception ex)
@@ -72,16 +72,16 @@ namespace CinemaAPI.Controllers
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok($"Актора \"{newActor.FirstName} {newActor.LastName}\" додано");
+            return Ok($"Аудиторію \"{newAudience.Category}\" додано");
 
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteActor(int id)
+        public async Task<IActionResult> DeleteAudience(int id)
         {
             try
             {
-                await _actorService.Delete(id);
+                await _audienceService.Delete(id);
             }
             catch (KeyNotFoundException ex)
             {
@@ -92,20 +92,20 @@ namespace CinemaAPI.Controllers
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok($"Актора з Id \"{id}\" видалено");
+            return Ok($"Аудиторію з Id \"{id}\" видалено");
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateActor(int id, [FromBody] UpdateActorDto updateActor)
+        public async Task<IActionResult> UpdateAudience(int id, [FromBody] UpdateAudienceDto updateAudience)
         {
-            if (updateActor == null || string.IsNullOrWhiteSpace(updateActor.FirstName) || string.IsNullOrWhiteSpace(updateActor.LastName))
+            if (updateAudience == null || string.IsNullOrWhiteSpace(updateAudience.Category))
             {
-                return BadRequest("Некоректне І'мя або Прізвище актора");
+                return BadRequest("Некоректна назва аудиторії");
             }
 
             try
             {
-                await _actorService.Update(id, updateActor);
+                await _audienceService.Update(id, updateAudience);
             }
             catch (KeyNotFoundException ex)
             {
@@ -116,7 +116,7 @@ namespace CinemaAPI.Controllers
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok($"Актора з Id \"{id}\" оновлено на \"{updateActor.FirstName} {updateActor.LastName}\"");
+            return Ok($"Назву аудиторії з Id \"{id}\" оновлено на \"{updateAudience.Category}\"");
         }
     }
 }

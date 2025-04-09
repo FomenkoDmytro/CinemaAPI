@@ -1,70 +1,70 @@
 ﻿using EpicVision.Application_BLL.Interfaces;
 using EpicVision.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using EpicVision.Application_BLL.DTO.Languages;
+using EpicVision.Application_BLL.DTO.Actors;
 
 namespace CinemaAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LanguageController : ControllerBase
+    public class ActorsController : ControllerBase
     {
-        private readonly ILanguageService _languageService;
+        private readonly IActorService _actorService;
 
-        public LanguageController(ILanguageService languageService)
+        public ActorsController(IActorService actorService)
         {
-            _languageService = languageService;
+            _actorService = actorService;
         }
 
         [HttpGet("dictionary")]
-        public async Task<IActionResult> GetAllLanguagesDictionary()
+        public async Task<IActionResult> GetAllActorsDictionary()
         {
-            IEnumerable<GetAllLanguagesDictionaryDto> languages;
+            IEnumerable<GetAllActorsDictionaryDto> actors;
 
             try
             {
-                languages = await _languageService.GetAllLanguagesDictionary();
+                actors = await _actorService.GetAllActorsDictionary();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok(languages);
+            return Ok(actors);
 
         }
 
         [HttpGet("withMovies")]
-        public async Task<IActionResult> GetAllLanguagesWithMovies()
+        public async Task<IActionResult> GetAllActorsWithMovies()
         {
-            IEnumerable<GetAllLanguagesWithMoviesDto> languages;
+            IEnumerable<GetAllActorsWithMoviesDto> actors;
 
             try
             {
-                languages = await _languageService.GetAllLanguagesWithMovies();
+                actors = await _actorService.GetAllActorsWithMovies();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok(languages);
+            return Ok(actors);
 
         }
 
 
 
         [HttpPost]
-        public async Task<IActionResult> AddLanguage([FromBody] AddLanguageDto newLanguage)
+        public async Task<IActionResult> AddActor([FromBody] AddActorDto newActor)
         {
-            if (newLanguage == null || string.IsNullOrWhiteSpace(newLanguage.LanguageName))
+            if (newActor == null || string.IsNullOrWhiteSpace(newActor.FirstName) || string.IsNullOrWhiteSpace(newActor.LastName))
             {
-                return BadRequest("Некоректна назва мови");
+                return BadRequest("Некоректне І'мя або Прізвище актора");
             }
 
             try
             {
-                await _languageService.Add(newLanguage);
+                await _actorService.Add(newActor);
 
             }
             catch (Exception ex)
@@ -72,16 +72,16 @@ namespace CinemaAPI.Controllers
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok($"Мову \"{newLanguage.LanguageName}\" додано");
+            return Ok($"Актора \"{newActor.FirstName} {newActor.LastName}\" додано");
 
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLanguage(int id)
+        public async Task<IActionResult> DeleteActor(int id)
         {
             try
             {
-                await _languageService.Delete(id);
+                await _actorService.Delete(id);
             }
             catch (KeyNotFoundException ex)
             {
@@ -92,20 +92,20 @@ namespace CinemaAPI.Controllers
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok($"Мову з Id \"{id}\" видалено");
+            return Ok($"Актора з Id \"{id}\" видалено");
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateLanguage(int id, [FromBody] UpdateLanguageDto updateLanguage)
+        public async Task<IActionResult> UpdateActor(int id, [FromBody] UpdateActorDto updateActor)
         {
-            if (updateLanguage == null || string.IsNullOrWhiteSpace(updateLanguage.LanguageName))
+            if (updateActor == null || string.IsNullOrWhiteSpace(updateActor.FirstName) || string.IsNullOrWhiteSpace(updateActor.LastName))
             {
-                return BadRequest("Некоректна назва мови");
+                return BadRequest("Некоректне І'мя або Прізвище актора");
             }
 
             try
             {
-                await _languageService.Update(id, updateLanguage);
+                await _actorService.Update(id, updateActor);
             }
             catch (KeyNotFoundException ex)
             {
@@ -116,7 +116,7 @@ namespace CinemaAPI.Controllers
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok($"Назву мови з Id \"{id}\" оновлено на \"{updateLanguage.LanguageName}\"");
+            return Ok($"Актора з Id \"{id}\" оновлено на \"{updateActor.FirstName} {updateActor.LastName}\"");
         }
     }
 }

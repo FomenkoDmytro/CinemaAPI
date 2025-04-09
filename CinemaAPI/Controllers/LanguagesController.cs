@@ -1,70 +1,70 @@
 ﻿using EpicVision.Application_BLL.Interfaces;
 using EpicVision.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
-using EpicVision.Application_BLL.DTO.Audiences;
+using EpicVision.Application_BLL.DTO.Languages;
 
 namespace CinemaAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AudienceController : ControllerBase
+    public class LanguagesController : ControllerBase
     {
-        private readonly IAudienceService _audienceService;
+        private readonly ILanguageService _languageService;
 
-        public AudienceController(IAudienceService audienceService)
+        public LanguagesController(ILanguageService languageService)
         {
-            _audienceService = audienceService;
+            _languageService = languageService;
         }
 
         [HttpGet("dictionary")]
-        public async Task<IActionResult> GetAllAudiencesDictionary()
+        public async Task<IActionResult> GetAllLanguagesDictionary()
         {
-            IEnumerable<GetAllAudiencesDictionaryDto> audiences;
+            IEnumerable<GetAllLanguagesDictionaryDto> languages;
 
             try
             {
-                audiences = await _audienceService.GetAllAudiencesDictionary();
+                languages = await _languageService.GetAllLanguagesDictionary();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok(audiences);
+            return Ok(languages);
 
         }
 
         [HttpGet("withMovies")]
-        public async Task<IActionResult> GetAllAudiencesWithMovies()
+        public async Task<IActionResult> GetAllLanguagesWithMovies()
         {
-            IEnumerable<GetAllAudiencesWithMoviesDto> audiences;
+            IEnumerable<GetAllLanguagesWithMoviesDto> languages;
 
             try
             {
-                audiences = await _audienceService.GetAllAudiencesWithMovies();
+                languages = await _languageService.GetAllLanguagesWithMovies();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok(audiences);
+            return Ok(languages);
 
         }
 
 
 
         [HttpPost]
-        public async Task<IActionResult> AddAudience([FromBody] AddAudienceDto newAudience)
+        public async Task<IActionResult> AddLanguage([FromBody] AddLanguageDto newLanguage)
         {
-            if (newAudience == null || string.IsNullOrWhiteSpace(newAudience.Category))
+            if (newLanguage == null || string.IsNullOrWhiteSpace(newLanguage.LanguageName))
             {
-                return BadRequest("Некоректна назва аудиторії");
+                return BadRequest("Некоректна назва мови");
             }
 
             try
             {
-                await _audienceService.Add(newAudience);
+                await _languageService.Add(newLanguage);
 
             }
             catch (Exception ex)
@@ -72,16 +72,16 @@ namespace CinemaAPI.Controllers
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok($"Аудиторію \"{newAudience.Category}\" додано");
+            return Ok($"Мову \"{newLanguage.LanguageName}\" додано");
 
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAudience(int id)
+        public async Task<IActionResult> DeleteLanguage(int id)
         {
             try
             {
-                await _audienceService.Delete(id);
+                await _languageService.Delete(id);
             }
             catch (KeyNotFoundException ex)
             {
@@ -92,20 +92,20 @@ namespace CinemaAPI.Controllers
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok($"Аудиторію з Id \"{id}\" видалено");
+            return Ok($"Мову з Id \"{id}\" видалено");
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAudience(int id, [FromBody] UpdateAudienceDto updateAudience)
+        public async Task<IActionResult> UpdateLanguage(int id, [FromBody] UpdateLanguageDto updateLanguage)
         {
-            if (updateAudience == null || string.IsNullOrWhiteSpace(updateAudience.Category))
+            if (updateLanguage == null || string.IsNullOrWhiteSpace(updateLanguage.LanguageName))
             {
-                return BadRequest("Некоректна назва аудиторії");
+                return BadRequest("Некоректна назва мови");
             }
 
             try
             {
-                await _audienceService.Update(id, updateAudience);
+                await _languageService.Update(id, updateLanguage);
             }
             catch (KeyNotFoundException ex)
             {
@@ -116,7 +116,7 @@ namespace CinemaAPI.Controllers
                 return StatusCode(500, new { message = "Помилка сервера", details = ex.Message });
             }
 
-            return Ok($"Назву аудиторії з Id \"{id}\" оновлено на \"{updateAudience.Category}\"");
+            return Ok($"Назву мови з Id \"{id}\" оновлено на \"{updateLanguage.LanguageName}\"");
         }
     }
 }

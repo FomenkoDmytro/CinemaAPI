@@ -7,11 +7,11 @@ namespace CinemaAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProducerController : ControllerBase
+    public class ProducersController : ControllerBase
     {
         private readonly IProducerService _producerService;
 
-        public ProducerController(IProducerService producerService)
+        public ProducersController(IProducerService producerService)
         {
             _producerService = producerService;
         }

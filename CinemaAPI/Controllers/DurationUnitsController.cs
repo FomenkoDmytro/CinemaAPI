@@ -6,11 +6,11 @@ namespace CinemaAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DurationUnitController : ControllerBase
+    public class DurationUnitsController : ControllerBase
     {
         private readonly IDurationUnitService _durationUnitService;
 
-        public DurationUnitController(IDurationUnitService durationUnitService)
+        public DurationUnitsController(IDurationUnitService durationUnitService)
         {
             _durationUnitService = durationUnitService;
         }
