@@ -11,6 +11,16 @@ Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhostFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+        //.AllowCredentials(); // Потрібно буде при авторизації
+    });
+});
 
 
 builder.Services.AddApplicationLayer();
@@ -29,6 +39,8 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 app.UseStaticFiles();
+
+app.UseCors("AllowLocalhostFrontend");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
