@@ -12,6 +12,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
         Task<IEnumerable<Audience>> GetAllAudiencesDirectory();
         Task<IEnumerable<Audience>> GetAllAudiencesWithMovies();
         Task<Audience> GetById(int id);
+        Task<bool> IsExistById(int id);
         Task Add(Audience audience);
         Task Update(Audience audience);
         Task Delete(int id);

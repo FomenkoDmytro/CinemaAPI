@@ -12,6 +12,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
         Task<IEnumerable<Producer>> GetAllProducersDirectory();
         Task<IEnumerable<Producer>> GetAllProducersWithMovies();
         Task<Producer> GetById(int id);
+        Task<bool> IsExistById(int id);
         Task Add(Producer producer);
         Task Update(Producer producer);
         Task Delete(int id);

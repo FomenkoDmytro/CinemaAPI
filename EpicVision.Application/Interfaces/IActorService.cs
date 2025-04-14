@@ -11,7 +11,6 @@ namespace EpicVision.Application_BLL.Interfaces
     {
         Task<IEnumerable<GetAllActorsDictionaryDto>> GetAllActorsDictionary();
         Task<IEnumerable<GetAllActorsWithMoviesDto>> GetAllActorsWithMovies();
-
         Task Add(AddActorDto actorDto);
         Task Update(int id, UpdateActorDto actor);
         Task Delete(int id);

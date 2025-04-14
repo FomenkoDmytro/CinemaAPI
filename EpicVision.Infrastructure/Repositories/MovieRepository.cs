@@ -20,17 +20,17 @@ namespace EpicVision.Infrastructure_DAL.Repositories
             
             var movies = await _context.Movies.
                 Include(x => x.Sessions)
-                    .Where(x => x.Sessions.Any(s => (s.Date ==  startSessionDate && s.Time >= startSessionTime) || s.Date > startSessionDate))
+                    .Where(x => x.Sessions.Any(s => (s.Date == startSessionDate && s.Time >= startSessionTime) || s.Date > startSessionDate))
                 .ToListAsync();
             return movies;
         }
 
         public Movie GetById(int id) => _context.Movies.Find(id);
 
-        public void Add(Movie movie)
+        public async Task Add(Movie movie)
         {
-            _context.Movies.Add(movie);
-            _context.SaveChanges();
+            await _context.Movies.AddAsync(movie);
+            await _context.SaveChangesAsync();
         }
 
         public void Update(Movie movie)

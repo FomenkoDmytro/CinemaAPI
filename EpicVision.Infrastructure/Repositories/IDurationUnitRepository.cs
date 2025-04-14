@@ -12,6 +12,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
     {
         Task<IEnumerable<DurationUnit>> GetAllDurationUnitsDirectory();
         Task<DurationUnit> GetById(int id);
+        Task<bool> IsExistById(int id);
         Task Add(DurationUnit durationUnit);
         Task Update(DurationUnit durationUnit);
         Task Delete(int id);

@@ -12,6 +12,8 @@ namespace EpicVision.Infrastructure_DAL.Repositories
         Task<IEnumerable<Actor>> GetAllActorsDirectory();
         Task<IEnumerable<Actor>> GetAllActorsWithMovies();
         Task<Actor> GetById(int id);
+        Task<IEnumerable<Actor>> GetByIds(IEnumerable<int> ids);
+        Task<List<int>> GetInvalidIds(IEnumerable<int> ids);
         Task Add(Actor actor);
         Task Update(Actor actor);
         Task Delete(int id);

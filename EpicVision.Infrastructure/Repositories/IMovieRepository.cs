@@ -8,7 +8,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
 
         Task<IEnumerable<Movie>> GetMoviesFromDateTime(DateOnly startSessionDate, TimeOnly startSessionTime);
         Movie GetById(int id);
-        void Add(Movie movie);
+        Task Add(Movie movie);
         void Update(Movie movie);
         void Delete(int id);
     }

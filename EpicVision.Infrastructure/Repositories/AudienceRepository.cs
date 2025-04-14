@@ -21,7 +21,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
 
         public async Task Add(Audience audience)
         {
-            await _context.AddAsync(audience);
+            await _context.Audiences.AddAsync(audience);
             await _context.SaveChangesAsync();
         }
 
@@ -31,7 +31,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
 
             if (audience != null)
             {
-                _context.Remove(audience);
+                _context.Audiences.Remove(audience);
                 await _context.SaveChangesAsync();
             }
         }
@@ -71,6 +71,11 @@ namespace EpicVision.Infrastructure_DAL.Repositories
             audienceForUpdate.Category = audience.Category;
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsExistById(int id)
+        {
+            return await _context.Audiences.AnyAsync(d => d.Id == id);
         }
     }
 }

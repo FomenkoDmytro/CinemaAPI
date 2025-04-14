@@ -31,7 +31,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
 
             if (language != null)
             {
-                _context.Remove(language);
+                _context.Languages.Remove(language);
                 await _context.SaveChangesAsync();
             }
         }
@@ -71,6 +71,11 @@ namespace EpicVision.Infrastructure_DAL.Repositories
             languageForUpdate.LanguageName = language.LanguageName;
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsExistById(int id)
+        {
+            return await _context.Languages.AnyAsync(d => d.Id == id);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
 
         public async Task Add(DurationUnit durationUnit)
         {
-            await _context.AddAsync(durationUnit);
+            await _context.DurationUnits.AddAsync(durationUnit);
             await _context.SaveChangesAsync();
         }
 
@@ -30,7 +30,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
 
             if (durationUnit != null)
             {
-                _context.Remove(durationUnit);
+                _context.DurationUnits.Remove(durationUnit);
                 await _context.SaveChangesAsync();
             }
         }
@@ -66,6 +66,11 @@ namespace EpicVision.Infrastructure_DAL.Repositories
             durationUnitForUpdate.FullName = durationUnit.FullName;
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsExistById(int id)
+        {
+            return await _context.DurationUnits.AnyAsync(d => d.Id == id);
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EpicVision.Infrastructure_DAL.Repositories
 {
-    public class ActorRepository: IActorRepository
+    public class ActorRepository : IActorRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -58,6 +58,13 @@ namespace EpicVision.Infrastructure_DAL.Repositories
             return actor;
         }
 
+        public async Task<IEnumerable<Actor>> GetByIds(IEnumerable<int> ids)
+        {
+            return await _context.Actors
+                .Where(a => ids.Contains(a.Id))
+                .ToListAsync();
+        }
+
         public async Task Update(Actor actor)
         {
             var actorForUpdate = await _context.Actors.FindAsync(actor.Id);
@@ -72,6 +79,17 @@ namespace EpicVision.Infrastructure_DAL.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<int>> GetInvalidIds(IEnumerable<int> ids)
+        {
+            var existingIds = await _context.Actors
+                .Where(a => ids.Contains(a.Id))
+                .Select(a => a.Id)
+                .ToListAsync();
+
+            return ids.Except(existingIds).ToList();
+        }
+
     }
 }
 

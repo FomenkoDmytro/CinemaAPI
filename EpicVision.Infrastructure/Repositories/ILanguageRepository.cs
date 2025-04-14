@@ -12,6 +12,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
         Task<IEnumerable<Language>> GetAllLanguagesDirectory();
         Task<IEnumerable<Language>> GetAllLanguagesWithMovies();
         Task<Language> GetById(int id);
+        Task<bool> IsExistById(int id);
         Task Add(Language Language);
         Task Update(Language Language);
         Task Delete(int id);

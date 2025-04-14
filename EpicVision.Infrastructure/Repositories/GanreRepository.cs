@@ -20,7 +20,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
 
         public async Task Add(Ganre ganre)
         {
-            await _context.AddAsync(ganre);
+            await _context.Ganres.AddAsync(ganre);
             await _context.SaveChangesAsync();
         }
 
@@ -30,7 +30,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
 
             if (ganre != null)
             {
-                _context.Remove(ganre);
+                _context.Ganres.Remove(ganre);
                 await _context.SaveChangesAsync();
             }
         }
@@ -61,6 +61,13 @@ namespace EpicVision.Infrastructure_DAL.Repositories
             return ganre;
         }
 
+        public async Task<IEnumerable<Ganre>> GetByIds(IEnumerable<int> ids)
+        {
+            return await _context.Ganres
+                .Where(a => ids.Contains(a.Id))
+                .ToListAsync();
+        }
+
         public async Task Update(Ganre ganre)
         {
            var ganreForUpdate = await _context.Ganres.FindAsync(ganre.Id);
@@ -73,6 +80,16 @@ namespace EpicVision.Infrastructure_DAL.Repositories
             ganreForUpdate.Name = ganre.Name;
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<int>> GetInvalidIds(IEnumerable<int> ids)
+        {
+            var existingIds = await _context.Ganres
+                .Where(a => ids.Contains(a.Id))
+                .Select(a => a.Id)
+                .ToListAsync();
+
+            return ids.Except(existingIds).ToList();
         }
     }
 }

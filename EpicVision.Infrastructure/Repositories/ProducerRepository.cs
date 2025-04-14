@@ -20,7 +20,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
 
         public async Task Add(Producer producer)
         {
-            await _context.AddAsync(producer);
+            await _context.Producers.AddAsync(producer);
             await _context.SaveChangesAsync();
         }
 
@@ -30,7 +30,7 @@ namespace EpicVision.Infrastructure_DAL.Repositories
 
             if (producer != null)
             {
-                _context.Remove(producer);
+                _context.Producers.Remove(producer);
                 await _context.SaveChangesAsync();
             }
         }
@@ -71,6 +71,11 @@ namespace EpicVision.Infrastructure_DAL.Repositories
             producerForUpdate.LastName = producer.LastName;
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsExistById(int id)
+        {
+            return await _context.Producers.AnyAsync(d => d.Id == id);
         }
     }
 }

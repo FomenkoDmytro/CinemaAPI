@@ -22,15 +22,18 @@ namespace EpicVision.Domain.Entities
         public int Duration { get; set; }
 
         public int DurationUnitId {  get; set; }
-        public DurationUnit? DurationUnit { get; set; }
+        public DurationUnit DurationUnit { get; set; }
 
         public string Plot { get; set; } = string.Empty;
 
         public int AudienceId { get; set; }
-        public Audience? Audience { get; set; }
+        public Audience Audience { get; set; }
 
         public int ProducerId {  get; set; }
-        public Producer? Producer { get; set; }
+        public Producer Producer { get; set; }
+
+        public int LanguageId {  get; set; }
+        public Language Language { get; set; }
 
         //public List<Hall> Halls { get; set; } = new();
 
@@ -38,8 +41,8 @@ namespace EpicVision.Domain.Entities
 
         public List<Ganre> Ganres { get; set; } = new();
 
-        public List<Language> Languages { get; set; } = new();
+        //public List<Language> Languages { get; set; } = new();
 
-        public List<Session> Sessions { get; set; } = new();
+        public List<Session>? Sessions { get; set; } = new();
     }
 }

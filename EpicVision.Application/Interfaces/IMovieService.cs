@@ -5,11 +5,12 @@ namespace EpicVision.Application_BLL.Interfaces
 {
     public interface IMovieService
     {
-        IEnumerable<Movie> GetAllMovies();
+        Task<(bool isValid, string errorMessage)> ValidateMovieDtoAsync(AddMovieDto dto);
+        //IEnumerable<GetAllMoviesDto> GetAllMovies();
         Task<IEnumerable<MoviesFromDateTime>> GetMoviesFromDate(DateOnly startSessionDate, TimeOnly startSessionTime);
-        Movie GetMovieById(int id);
-        void AddMovie(Movie movie);
-        void UpdateMovie(Movie movie);
-        void DeleteMovie(int id);
+        //GetMovieByIdDto GetMovieById(int id);
+        Task AddMovie(AddMovieDto movie);
+        //void UpdateMovie(UpdateMovieDto movie);
+        //void DeleteMovie(int id);
     }
 }
